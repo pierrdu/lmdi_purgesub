@@ -1,0 +1,46 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_PSB_SETTINGS}</h1>
+
+<form id="acp_board" method="post" action="{U_ACTION}">
+
+	<fieldset>
+		<legend>{L_PSB_VALIDATION}</legend>
+		<dl>
+			<dt><label>{L_ACP_PSB_VALIDATION}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_VAL_EXPLAIN}</span></dt>
+			<dd><input type="radio" class="radio" name="psb_validation" value="1" 
+				<!-- IF S_PURGE_UCP --> checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="psb_validation" value="0" 
+				<!-- IF not S_PURGE_UCP --> checked="checked"<!-- ENDIF --> /> {L_NO}</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_ACP_PSB_PURGE}</legend>
+		<dl>
+			<dt><label>{L_ACP_PSB_NOMBRE}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_NB_EXPLAIN}</span></dt>
+			<dd>{ACP_PSB_NB}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_ACP_PSB_PURGE_LABEL}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_PURGE_EXPLAIN}</span>
+			</dt>
+			<dd><input name="nb_mois" id="nb_mois" type="text" size="4" maxlength="2" value="{PST_TIME}" />&nbsp;<span>{L_MONTHS}</span>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
+	</fieldset>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

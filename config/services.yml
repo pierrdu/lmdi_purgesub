@@ -1,0 +1,15 @@
+services:
+    lmdi.purgesub.controller:
+        class: lmdi\purgesub\controller\main
+        arguments:
+            - @config
+            - @controller.helper
+            - @template
+            - @user
+    lmdi.purgesub.listener:
+        class: lmdi\purgesub\event\main_listener
+        arguments:
+            - @controller.helper
+            - @template
+        tags:
+            - { name: event.listener }
