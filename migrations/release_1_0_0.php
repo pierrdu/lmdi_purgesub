@@ -51,15 +51,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 
 				),
 			)),
-			array('module.add', array(
-				'ucp', 
-				'UCP_MAIN', 
-				array(
-					'module_basename'	=> '\lmdi\purgesub\ucp\delete_my_registration_module',
-					'modes'			=> array('my_acc_delete'),
-					'module_auth'       => 'ext_lmdi/purgesub',
-				)
-			)),
 		);
 	}
 	public function revert_data()
