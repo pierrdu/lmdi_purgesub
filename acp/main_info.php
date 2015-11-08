@@ -18,8 +18,11 @@ class main_info
 			'filename'	=> '\lmdi\purgesub\acp\main_module',
 			'title'		=> 'ACP_PSB_TITLE',
 			'version'	=> '1.0.0',
-			'modes'		=> array(
-				'settings'	=> array('title' => 'ACP_PSB', 'auth' => 'ext_lmdi/purgesub && acl_a_board', 'cat' => array('ACP_PSB_TITLE')),
+			'modes'	=> array(
+					'settings' => array('title' => 'ACP_PSB', 
+							'auth' => 'ext_lmdi/purgesub', 
+							'cat' => array('ACP_PSB_TITLE')
+						),
 			),
 		);
 	}

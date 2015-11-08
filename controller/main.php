@@ -8,7 +8,7 @@
 *
 */
 
-namespace acme\demo\controller;
+namespace lmdi\purgesub\controller;
 
 class main
 {

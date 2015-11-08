@@ -71,9 +71,20 @@ class main_module
 			{
 				trigger_error('FORM_INVALID');
 			}
-			// Register the setting for the UCP
-			$config->set('lmdi_purge_ucp', $request->variable('psb_validation', 0));
-			$message = 1;
+			// Register the setting for the UCP in the config table if changed.
+			$cod1 = $config['lmdi_purge_ucp'];
+			$cod2 = $request->variable('psb_validation', 0);
+			$mess = 0;
+			if ($cod1 != $cod2)
+			{
+				$config->set('lmdi_purge_ucp', $cod2);
+				$sql  = "UPDATE " . MODULES_TABLE;
+				$sql .= " SET module_display = $cod2 ";
+				$sql .= "WHERE module_langname = 'UCP_PSB'";
+				$this->db->sql_query($sql);
+				$cache->purge ();
+				$mess += 1;
+			}
 			// Purge older topics in topics_watch table
 			$nb = $request->variable('nb_mois', 0);
 			if ($nb != 0) 
@@ -86,11 +97,22 @@ class main_module
 				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
 				$sql .= "date_sub(now(), interval $nb month)";
 				$this->db->sql_query($sql);
-				$message = $user->lang('PSB_PURGE_DONE')
+				$mess += 2;
 			}
-			else
+			switch ($mess) 
 			{
-				$message = $user->lang('PSB_SETTING_SAVED');
+				case 0 :
+					$message = $user->lang('PSB_NADA');
+					break;
+				case 1 :
+					$message = $user->lang('PSB_SETTING_SAVED');
+					break;
+				case 2 :
+					$message = $user->lang('PSB_PURGE_DONE');
+					break;
+				case 3 :
+					$message = $user->lang('PSB_PURGE_SETT');
+					break;
 			}
 			// Information message
 			trigger_error($message . adm_back_link($this->u_action));

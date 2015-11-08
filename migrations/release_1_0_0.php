@@ -38,16 +38,27 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				array(
 					'module_basename'	=> '\lmdi\purgesub\acp\main_module',
 					'modes'			=> array('settings'),
+					'module_auth'       => 'ext_lmdi/purgesub',
 				),
 			)),
 			array('module.add', array(
 				'ucp',
 				'UCP_MAIN',
-				'UCP_PSB_TITLE',
 				array(
-					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_module',
-					'modes'			=> array('settings'),
+					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
+					'modes'			=> array('purgesub'),
+					'module_auth'       => 'ext_lmdi/purgesub',
+
 				),
+			)),
+			array('module.add', array(
+				'ucp', 
+				'UCP_MAIN', 
+				array(
+					'module_basename'	=> '\lmdi\purgesub\ucp\delete_my_registration_module',
+					'modes'			=> array('my_acc_delete'),
+					'module_auth'       => 'ext_lmdi/purgesub',
+				)
 			)),
 		);
 	}
@@ -58,16 +69,16 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 
 			array('module.remove', array(
 				'acp',
-				'ACP_CAT_DOT_MODS',
-				'ACP_PSB_TITLE'
-			)),
-			array('module.remove', array(
-				'acp',
 				'ACP_PSB_TITLE',
 				array(
 					'module_basename'	=> '\lmdi\purgesub\acp\main_module',
 					'modes'			=> array('settings'),
 				),
+			)),
+			array('module.remove', array(
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'ACP_PSB_TITLE'
 			)),
 			array('module.remove', array(
 				'ucp',
