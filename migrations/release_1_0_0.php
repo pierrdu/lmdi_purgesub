@@ -48,7 +48,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
 					'modes'			=> array('purgesub'),
 					'module_auth'       => 'ext_lmdi/purgesub',
-
+					'module_display'	=> 0,
 				),
 			)),
 		);
