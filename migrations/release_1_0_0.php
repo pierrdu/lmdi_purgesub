@@ -56,8 +56,8 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 	public function revert_data()
 	{
 		return array(
-			array('config.remove', array('lmdi_purge_ucp')),
-
+			array('config.remove', array('lmdi_purge_ucp'
+			)),
 			array('module.remove', array(
 				'acp',
 				'ACP_PSB_TITLE',
