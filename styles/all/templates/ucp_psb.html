@@ -1,0 +1,17 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>Titre</h2>
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}">
+
+<!-- IF SWITCH == 'delete' or  SWITCH == 'edit' -->
+	<fieldset class="submit-buttons">
+		{S_HIDDEN_FIELDS}<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp;
+		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		{S_FORM_TOKEN}
+	</fieldset>
+<!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->
