@@ -49,6 +49,8 @@ class ucp_psb_module
 		$nbp = 0;
 		$nbv = 0;
 		$nba = 0;
+		$nbma = 0;
+		$nbmp = 0;
 
 		// Submission
 		if ($request->is_set_post('submit'))
@@ -57,11 +59,9 @@ class ucp_psb_module
 				{
 					trigger_error('FORM_INVALID');
 				}
-			// Display of number of older topics in topics_watch table
-			$nba = $request->variable('nbma', 0);
-			// Topics to be purged
-			$nbp = $request->variable('nbmp', 0);
-			if ($nba)
+			// Display number of older topics
+			$nbma = $request->variable('nbma', 0);
+			if ($nbma)
 			{
 				// Older topics without posts
 				$sql  = "SELECT COUNT(*) as nb ";
@@ -71,7 +71,7 @@ class ucp_psb_module
 				$sql .= TOPICS_TABLE . ".topic_id AND ";
 				$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
-				$sql .= "date_sub(now(), interval $nba month)";
+				$sql .= "date_sub(now(), interval $nbma month)";
 				// var_dump ($sql);
 				$res = $this->db->sql_query($sql);
 				$row = $this->db->sql_fetchrow($res);
@@ -85,7 +85,7 @@ class ucp_psb_module
 				$sql .= TOPICS_TABLE . ".topic_id AND ";
 				$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
-				$sql .= "date_sub(now(), interval $nba month)";
+				$sql .= "date_sub(now(), interval $nbma month)";
 				// var_dump ($sql);
 				$res = $this->db->sql_query($sql);
 				$row = $this->db->sql_fetchrow($res);
@@ -93,23 +93,53 @@ class ucp_psb_module
 				$this->db->sql_freeresult($res);
 			}
 				
-			if ($nbp) 
+			// Topics to be purged
+			$nbmp = $request->variable('nbmp', 0);
+			$purgep = $request->variable('purgep', 0);
+			$purgev = $request->variable('purgev', 0);
+			if ($nbmp) 
 			{
-				// Purge older topics
-				$sql  = "DELETE " . TOPICS_WATCH_TABLE;
-				$sql .= " FROM " . TOPICS_WATCH_TABLE;
-				$sql .= " INNER JOIN " . TOPICS_TABLE;
-				$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-				$sql .= TOPICS_TABLE . ".topic_id AND ";
-				$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
-				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
-				$sql .= "date_sub(now(), interval $nbp month)";
-				$this->db->sql_query($sql);
-				// var_dump ($sql);
+				if ($purgep)
+				{
+					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
+					$sql .= " FROM " . TOPICS_WATCH_TABLE;
+					$sql .= " INNER JOIN " . TOPICS_TABLE;
+					$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= TOPICS_TABLE . ".topic_id AND ";
+					$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
+					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
+					$sql .= "date_sub(now(), interval $nbmp month)";
+					// var_dump ($sql);
+					$this->db->sql_query($sql);
+					$delp = $this->db->sql_affectedrows();
+				}
+				if ($purgev)
+				{
+					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
+					$sql .= " FROM " . TOPICS_WATCH_TABLE;
+					$sql .= " INNER JOIN " . TOPICS_TABLE;
+					$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= TOPICS_TABLE . ".topic_id AND ";
+					$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
+					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
+					$sql .= "date_sub(now(), interval $nbmp month)";
+					// var_dump ($sql);
+					$this->db->sql_query($sql);
+					$delv = $this->db->sql_affectedrows();
+				}
+				$del = $delp + $delv;
+				if ($del) 
+				{
+					// Information message
+					$message = 'UCP_RESULT_PURGE' . $del;
+					$params = "i=-lmdi-purgesub-ucp-ucp_psb_module&mode=purgesub";
+					meta_refresh (3, append_sid("{$phpbb_root_path}index.$phpEx", $params));
+					trigger_error($message);
+				}
 			}
 		}
 		
-		// Total number of subscribed topics at this point of time
+		// Total number of subscribed topics at this point of time (after or before)
 		$sql = "select count(*) as nb from " . TOPICS_WATCH_TABLE;
 		$sql .= " WHERE user_id = $uid";
 		$this->db->sql_query($sql);
@@ -132,8 +162,8 @@ class ucp_psb_module
 			'UCP_PSB_NBT'		=> $nbt,			
 			'UCP_PSB_NBP'		=> $nbp,			
 			'UCP_PSB_NBV'		=> $nbv,			
-			'PSB_NBA'			=> $nba,
-			'PSB_NBP'			=> $nbp,
+			'PSB_NBA'			=> $nbma,
+			'PSB_NBP'			=> $nbmp,
 		));
 	}
 }
