@@ -1,17 +1,61 @@
 <!-- INCLUDE ucp_header.html -->
 
-<h2>Titre</h2>
+<h2>{L_TITLE}</h2>
 
-<form id="ucp" method="post" action="{S_UCP_ACTION}">
+<div class="panel">
+	<div class="inner">
 
-<!-- IF SWITCH == 'delete' or  SWITCH == 'edit' -->
+	<form id="ucp" method="post" action="{S_UCP_ACTION}">
+
+	<h3>{L_UCP_SITUATION}</h3>
+	<fieldset>
+		<dl>
+			<dt><label>{L_UCP_PSB_NOMBRE}{L_COLON}</label><br />
+			<span>{L_UCP_PSB_NB_EXPLAIN}</span></dt>
+			<dd>{UCP_PSB_NBT}</dd>
+		</dl>
+	</fieldset>
+	
+	<h3>{L_UCP_EXPLORATION}</h3>
+	<fieldset>
+		<dl>
+			<dt><label>{L_UCP_PSB_AFFICHAGE}{L_COLON}</label><br />
+			<span>{L_UCP_PSB_AFF_EXPLAIN}</span>
+			</dt>
+			<dd><input name="nbma" id="nbma" type="text" size="4" maxlength="2" value="{PSB_NBA}" />&nbsp;<span>{L_MONTHS}</span>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_UCP_PSB_NB_POST}{L_COLON}</label><br />
+			<span>{L_UCP_PSB_NB_POST_EXPLAIN}</span></dt>
+			<dd>{UCP_PSB_NBP}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_UCP_PSB_NB_VISIT}{L_COLON}</label><br />
+			<span>{L_UCP_PSB_NB_VIS_EXPLAIN}</span></dt>
+			<dd>{UCP_PSB_NBV}</dd>
+		</dl>
+	</fieldset>
+
+	<h3>{L_UCP_PURGE_SUB}</h3>
+	<fieldset>
+		<dl>
+			<dt><label>{L_UCP_PSB_PURGE_LABEL}{L_COLON}</label><br />
+			<span>{L_UCP_PSB_PURGE_EXPLAIN}</span>
+			</dt>
+			<dd><input name="nbmp" id="nbmp" type="text" size="4" maxlength="2" value="{PSB_NBP}" />&nbsp;<span>{L_MONTHS}</span>
+			</dd>
+		</dl>
+	</fieldset>
+
 	<fieldset class="submit-buttons">
 		{S_HIDDEN_FIELDS}<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp;
 		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
 		{S_FORM_TOKEN}
 	</fieldset>
-<!-- ENDIF -->
 
-</form>
+	</form>
+	</div>
+</div>
 
 <!-- INCLUDE ucp_footer.html -->

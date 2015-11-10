@@ -130,7 +130,8 @@ class main_module
 		// Display variables
 		$template->assign_vars(array(
 			'U_ACTION'			=> $this->u_action,
-			'ACP_PSB_NB'			=> $nb,			
+			'ACP_PSB_NB'			=> $nb,
+			'ZERO_MOIS'			=> 0,
 			'S_PURGE_UCP'			=> $config['lmdi_purge_ucp'],
 		));
 		
