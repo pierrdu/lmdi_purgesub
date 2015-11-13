@@ -63,7 +63,18 @@ class main_module
 		$this->tpl_name = 'acp_body';
 		$this->page_title = $user->lang('ACP_PSB_TITLE');
 		add_form_key('lmdi/purgesub');
-
+		$nbma = 0;
+		$nbmp = 0;
+		
+		// Initial reset of the module_display row in the module table
+		if (!$config['lmdi_purge_ucp'])
+		{
+			$sql  = "UPDATE " . MODULES_TABLE;
+			$sql .= " SET module_display = 0 ";
+			$sql .= "WHERE module_langname = 'UCP_PSB'";
+			$this->db->sql_query($sql);
+		}
+		
 		// Data submitted
 		if ($request->is_set_post('submit'))
 		{
@@ -71,6 +82,7 @@ class main_module
 			{
 				trigger_error('FORM_INVALID');
 			}
+			$nbma = $request->variable('nbma', 0);
 			// Register the setting for the UCP in the config table if changed.
 			$cod1 = $config['lmdi_purge_ucp'];
 			$cod2 = $request->variable('psb_validation', 0);
@@ -84,54 +96,95 @@ class main_module
 				$this->db->sql_query($sql);
 				$cache->purge ();
 				$mess += 1;
+				trigger_error($user->lang('PSB_SETTING_SAVED') . adm_back_link($this->u_action));
 			}
 			// Purge older topics in topics_watch table
-			$nb = $request->variable('nb_mois', 0);
-			if ($nb != 0) 
+			$nbmp = $request->variable('nbmp', 0);
+			$purgep = $request->variable('purgep', 0);
+			$purgev = $request->variable('purgev', 0);
+			if ($nbmp != 0) 
 			{
-				$sql  = "DELETE " . TOPICS_WATCH_TABLE;
-				$sql .= " FROM " . TOPICS_WATCH_TABLE;
-				$sql .= " INNER JOIN " . TOPICS_TABLE;
-				$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-				$sql .= TOPICS_TABLE . ".topic_id AND ";
-				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
-				$sql .= "date_sub(now(), interval $nb month)";
-				$this->db->sql_query($sql);
-				$mess += 2;
+				if ($purgep)
+				{
+					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
+					$sql .= " FROM " . TOPICS_WATCH_TABLE;
+					$sql .= " INNER JOIN " . TOPICS_TABLE;
+					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= TOPICS_TABLE . ".topic_id AND ";
+					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
+					$sql .= "date_sub(now(), interval $nbmp month)";
+					// var_dump ($sql);
+					$this->db->sql_query($sql);
+					$delp = $this->db->sql_affectedrows();
+				}
+				if ($purgev)
+				{
+					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
+					$sql .= " FROM " . TOPICS_WATCH_TABLE;
+					$sql .= " INNER JOIN " . TOPICS_TABLE;
+					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= TOPICS_TABLE . ".topic_id AND ";
+					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
+					$sql .= "date_sub(now(), interval $nbmp month)";
+					// var_dump ($sql);
+					$this->db->sql_query($sql);
+					$delv = $this->db->sql_affectedrows();
+				}
+				$del = $delp + $delv;
+				if ($del) 
+				{
+					// Information message
+					$message = $user->lang('UCP_RESULT_PURGE') . $del;
+					trigger_error($message. adm_back_link($this->u_action));
+				}
 			}
-			switch ($mess) 
-			{
-				case 0 :
-					$message = $user->lang('PSB_NADA');
-					break;
-				case 1 :
-					$message = $user->lang('PSB_SETTING_SAVED');
-					break;
-				case 2 :
-					$message = $user->lang('PSB_PURGE_DONE');
-					break;
-				case 3 :
-					$message = $user->lang('PSB_PURGE_SETT');
-					break;
-			}
-			// Information message
-			trigger_error($message . adm_back_link($this->u_action));
 		}
 		
 		// Back to the form
 		
-		// Number of subscribed topics
+		// Total number of subscribed topics
 		$sql = "select count(*) as nb from " . TOPICS_WATCH_TABLE;
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
-		$nb  = $row['nb'];
+		$nbt = $row['nb'];
+		$this->db->sql_freeresult($res);
+		
+		// Topics without new posts
+		$sql  = "SELECT COUNT(*) as nb ";
+		$sql .= " FROM " . TOPICS_WATCH_TABLE;
+		$sql .= " INNER JOIN " . TOPICS_TABLE;
+		$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+		$sql .= TOPICS_TABLE . ".topic_id AND ";
+		$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
+		$sql .= "date_sub(now(), interval $nbma month)";
+		// var_dump ($sql);
+		$res = $this->db->sql_query($sql);
+		$row = $this->db->sql_fetchrow($res);
+		$nbp  = $row['nb'];
+		$this->db->sql_freeresult($res);
+		
+		// Topics without new views
+		$sql  = "SELECT COUNT(*) as nb ";
+		$sql .= " FROM " . TOPICS_WATCH_TABLE;
+		$sql .= " INNER JOIN " . TOPICS_TABLE;
+		$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+		$sql .= TOPICS_TABLE . ".topic_id AND ";
+		$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
+		$sql .= "date_sub(now(), interval $nbma month)";
+		// var_dump ($sql);
+		$res = $this->db->sql_query($sql);
+		$row = $this->db->sql_fetchrow($res);
+		$nbv  = $row['nb'];
 		$this->db->sql_freeresult($res);
 			
 		// Display variables
 		$template->assign_vars(array(
 			'U_ACTION'			=> $this->u_action,
-			'ACP_PSB_NB'			=> $nb,
-			'ZERO_MOIS'			=> 0,
+			'ACP_PSB_NBT'			=> $nbt,
+			'ACP_PSB_NBP'			=> $nbp,
+			'ACP_PSB_NBV'			=> $nbv,
+			'ACP_PSB_NBMA'			=> $nbma,
+			'ACP_PSB_NBMP'			=> $nbmp,
 			'S_PURGE_UCP'			=> $config['lmdi_purge_ucp'],
 		));
 		

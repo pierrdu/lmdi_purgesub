@@ -67,7 +67,7 @@ class ucp_psb_module
 				$sql  = "SELECT COUNT(*) as nb ";
 				$sql .= " FROM " . TOPICS_WATCH_TABLE;
 				$sql .= " INNER JOIN " . TOPICS_TABLE;
-				$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+				$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
 				$sql .= TOPICS_TABLE . ".topic_id AND ";
 				$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
@@ -81,7 +81,7 @@ class ucp_psb_module
 				$sql  = "SELECT COUNT(*) as nb ";
 				$sql .= " FROM " . TOPICS_WATCH_TABLE;
 				$sql .= " INNER JOIN " . TOPICS_TABLE;
-				$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+				$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
 				$sql .= TOPICS_TABLE . ".topic_id AND ";
 				$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 				$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
@@ -104,7 +104,7 @@ class ucp_psb_module
 					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
 					$sql .= " FROM " . TOPICS_WATCH_TABLE;
 					$sql .= " INNER JOIN " . TOPICS_TABLE;
-					$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
 					$sql .= TOPICS_TABLE . ".topic_id AND ";
 					$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
@@ -118,7 +118,7 @@ class ucp_psb_module
 					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
 					$sql .= " FROM " . TOPICS_WATCH_TABLE;
 					$sql .= " INNER JOIN " . TOPICS_TABLE;
-					$sql .= "	WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
+					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
 					$sql .= TOPICS_TABLE . ".topic_id AND ";
 					$sql .= TOPICS_WATCH_TABLE . ".user_id = $uid AND ";
 					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
@@ -133,7 +133,7 @@ class ucp_psb_module
 					// Information message
 					$message = 'UCP_RESULT_PURGE' . $del;
 					$params = "i=-lmdi-purgesub-ucp-ucp_psb_module&mode=purgesub";
-					meta_refresh (3, append_sid("{$phpbb_root_path}index.$phpEx", $params));
+					meta_refresh (3, append_sid("{$phpbb_root_path}ucp.$phpEx", $params));
 					trigger_error($message);
 				}
 			}

@@ -14,7 +14,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['acme_demo_goodbye']);
+		return isset($this->config['lmdi_purge_topics']);
 	}
 
 	static public function depends_on()
@@ -25,8 +25,13 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
+			array('config.add', array('lmdi_purge_topics', 1)),
 			array('config.add', array('lmdi_purge_ucp', 0)),
-
+			/*
+			array('permission.add', array('ext_lmdi/purgesub')),	
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'ext_lmdi/purgesub')),
+			array('permission.permission_set', array('REGISTERED', 'ext_lmdi/purgesub')),
+			*/
 			array('module.add', array(
 				'acp',
 				'ACP_CAT_DOT_MODS',
@@ -43,21 +48,46 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			)),
 			array('module.add', array(
 				'ucp',
+				'0',
+				'UCP_PSB_TITLE',
+			)),
+			
+			array('module.add', array(
+				'ucp',
+				'UCP_PSB_TITLE',
+				array(
+					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
+					'module_mode'		=> 'purgesub',
+					'module_auth'       => 'ext_lmdi/purgesub',
+					'module_display'	=> 0,
+					'module_enabled'	=> 1,
+					'module_class'		=> 'ucp',
+				),
+			)),
+			/*
+			// Solution to add a sub-tab to the Overview tab
+			array('module.add', array(
+				'ucp',
 				'UCP_MAIN',
 				array(
 					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
-					'modes'			=> array('purgesub'),
+					'module_mode'		=> 'purgesub',
 					'module_auth'       => 'ext_lmdi/purgesub',
 					'module_display'	=> 0,
 				),
 			)),
+			*/
 		);
 	}
 	public function revert_data()
 	{
 		return array(
-			array('config.remove', array('lmdi_purge_ucp'
-			)),
+			array('config.remove', array('lmdi_purge_topics')),
+			array('config.remove', array('lmdi_purge_ucp')),
+			/*
+			array('permission.remove', array('ext_lmdi/purgesub', 1)),
+			array('permission.permission_unset', array('ROLE_ADMIN_FULL', 'ext_lmdi/purgesub')),
+			*/
 			array('module.remove', array(
 				'acp',
 				'ACP_PSB_TITLE',
@@ -76,6 +106,34 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				'UCP_MAIN',
 				'UCP_PSB_TITLE',
 			)),
+			array('module.remove', array(
+				'ucp',
+				'UCP_PSB_TITLE',
+				array(
+					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
+					'module_mode'		=> 'purgesub',
+					'module_auth'       => 'ext_lmdi/purgesub',
+					'module_display'	=> 0,
+					'module_enabled'	=> 1,
+					'module_class'		=> 'ucp',
+				),
+			)),
+			array('module.remove', array(
+				'ucp',
+				'0',
+				'UCP_PSB_TITLE',
+			)),
+			/*
+			array('module.remove', array(
+				'ucp',
+				'UCP_PSB_TITLE',
+				array(
+					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
+					'module_mode'		=> 'purgesub',
+					'module_auth'       => 'ext_lmdi/purgesub',
+				),
+			)),
+			*/
 		);
 	}
 }

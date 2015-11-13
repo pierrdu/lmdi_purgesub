@@ -17,18 +17,53 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>{L_ACP_PSB_PURGE}</legend>
+		<legend>{L_ACP_PSB_DISPLAY}</legend>
+		<dl>
+			<dt><label>{L_ACP_PSB_DISPLAY_SELECT}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_DISPLAY_EXPLAIN}</span>
+			</dt>
+			<dd><input name="nbma" id="nbma" type="text" size="4" maxlength="2" value="{ACP_PSB_NBMA}" />&nbsp;<span>{L_MONTHS}</span>
+			</dd>
+		</dl>
 		<dl>
 			<dt><label>{L_ACP_PSB_NOMBRE}{L_COLON}</label><br />
 			<span>{L_ACP_PSB_NB_EXPLAIN}</span></dt>
-			<dd>{ACP_PSB_NB}</dd>
+			<dd>{ACP_PSB_NBT}</dd>
 		</dl>
+		<dl>
+			<dt><label>{L_ACP_PSB_NOPOSTS}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_NOP_EXPLAIN}</span></dt>
+			<dd>{ACP_PSB_NBP}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_ACP_PSB_NOVIEW}{L_COLON}</label><br />
+			<span>{L_ACP_PSB_NOV_EXPLAIN}</span></dt>
+			<dd>{ACP_PSB_NBV}</dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset>
+		<legend>{L_ACP_PSB_PURGE}</legend>
 		<dl>
 			<dt><label>{L_ACP_PSB_PURGE_LABEL}{L_COLON}</label><br />
 			<span>{L_ACP_PSB_PURGE_EXPLAIN}</span>
 			</dt>
-			<dd><input name="nb_mois" id="nb_mois" type="text" size="4" maxlength="2" value="{PST_TIME}" />&nbsp;<span>{L_MONTHS}</span>
+			<dd><input name="nbmp" id="nbmp" type="text" size="4" maxlength="2" value="{ACP_PSB_NBMP}" />&nbsp;<span>{L_MONTHS}</span>
 			</dd>
+		</dl>
+		<dl>
+		<dt><label for="purgep0">{L_UCP_PURGE_POSTS}{L_COLON}</label></dt>
+		<dd>
+			<label for="purgep1"><input type="radio" name="purgep" id="purgep1" value="1" checked="checked" /> {L_YES}</label>
+			<label for="purgep0"><input type="radio" name="purgep" id="purgep0" value="0" /> {L_NO}</label>
+		</dd>
+		</dl>
+		<dl>
+		<dt><label for="purgev1">{L_UCP_PURGE_VISIT}{L_COLON}</label></dt>
+		<dd>
+			<label for="purgev1"><input type="radio" name="purgev" id="purgev1" value="1" checked="checked" /> {L_YES}</label>
+			<label for="purgev0"><input type="radio" name="purgev" id="purgev0" value="0" /> {L_NO}</label>
+		</dd>
 		</dl>
 	</fieldset>
 
