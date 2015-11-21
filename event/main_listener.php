@@ -45,8 +45,6 @@ class main_listener implements EventSubscriberInterface
 		\phpbb\config\config $config
 		)
 	{
-		$this->helper = $helper;
-		$this->template = $template;
 		$this->db = $db;
 		$this->config = $config;
 	}
@@ -59,7 +57,7 @@ class main_listener implements EventSubscriberInterface
 			$sql  = "UPDATE " . MODULES_TABLE;
 			$sql .= " SET module_display = 0 ";
 			$sql .= "WHERE module_langname = 'UCP_PSB'";
-			var_dump ($sql);
+			// var_dump ($sql);
 			$this->db->sql_query($sql);
 		}
 		$lang_set_ext = $event['lang_set_ext'];
