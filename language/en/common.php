@@ -63,8 +63,6 @@ $lang = array_merge($lang, array(
 	'UCP_PSB_NB_POST_EXPLAIN'	=> 'Total number of your subscribed topics without a new post on this period.',
 	
 	'UCP_PURGE_SUB'		=> 'Purge subscribed topics',
-	'YES'				=> 'Yes',
-	'NO'					=> 'No',
 	'UCP_PURGE_VISIT'		=> 'Purge topics without visits',
 	'UCP_PURGE_POSTS'		=> 'Purge topics without posts',
 	'UCP_RESULT_PURGE'		=> 'Number of deleted topics: ',
@@ -72,6 +70,8 @@ $lang = array_merge($lang, array(
 	
 // Common
 	'MONTHS'				=> 'month(s)',
+	'YES'				=> 'Yes',
+	'NO'					=> 'No',
 ));
 
 ?>

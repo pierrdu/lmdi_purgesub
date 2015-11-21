@@ -60,16 +60,15 @@ $lang = array_merge($lang, array(
 	'UCP_PSB_NB_VIS_EXPLAIN'	=> 'Nombre total des sujets que vous surveillez qui n\'ont pas reçu de visite au cours des derniers mois saisis ci-dessus.',
 	'UCP_PSB_NB_POST'		=> 'Nombre total de sujets surveillés sans nouveau message',
 	'UCP_PSB_NB_POST_EXPLAIN'	=> 'Nombre total des sujets que vous surveillez qui n\'ont pas reçu de nouveau message au cours des dernier smois saisis ci-dessus.',
-	
 	'UCP_PURGE_SUB'		=> 'Délestage des sujets surveillés',
-	'YES'				=> 'Yes',
-	'NO'					=> 'No',
 	'UCP_PURGE_VISIT'		=> 'Délestage des sujets non visités',
 	'UCP_PURGE_POSTS'		=> 'Délestage des sujets sans messages',
 	'UCP_RESULT_PURGE'		=> 'Nombre de sujets supprimés : ',
 
 // Common
 	'MONTHS'				=> 'mois',
+	'YES'				=> 'Oui',
+	'NO'					=> 'Non',
 	
 ));
 
