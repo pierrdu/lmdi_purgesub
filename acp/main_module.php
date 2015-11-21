@@ -66,15 +66,6 @@ class main_module
 		$nbma = 0;
 		$nbmp = 0;
 		
-		// Initial reset of the module_display row in the module table
-		if (!$config['lmdi_purge_ucp'])
-		{
-			$sql  = "UPDATE " . MODULES_TABLE;
-			$sql .= " SET module_display = 0 ";
-			$sql .= "WHERE module_langname = 'UCP_PSB'";
-			$this->db->sql_query($sql);
-		}
-		
 		// Data submitted
 		if ($request->is_set_post('submit'))
 		{

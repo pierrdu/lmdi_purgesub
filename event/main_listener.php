@@ -28,11 +28,11 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	/* @var \phpbb\controller\helper */
-	protected $helper;
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
 
-	/* @var \phpbb\template\template */
-	protected $template;
+	/* @var \phpbb\config\config */
+	protected $config;
 
 	/**
 	* Constructor
@@ -40,14 +40,28 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\controller\helper	$helper		Controller helper object
 	* @param \phpbb\template			$template		Template object
 	*/
-	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template)
+	public function __construct(
+		\phpbb\db\driver\driver_interface $db,
+		\phpbb\config\config $config
+		)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
+		$this->db = $db;
+		$this->config = $config;
 	}
 
 	public function load_language_on_setup($event)
 	{
+		// Initial reset of the module_display row in the module table
+		if (!$this->config['lmdi_purge_ucp'])
+		{
+			$sql  = "UPDATE " . MODULES_TABLE;
+			$sql .= " SET module_display = 0 ";
+			$sql .= "WHERE module_langname = 'UCP_PSB'";
+			var_dump ($sql);
+			$this->db->sql_query($sql);
+		}
 		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = array(
 			'ext_name' => 'lmdi/purgesub',

@@ -1,3 +1,0 @@
-lmdi_purgesub_controller:
-    path: /purgesub/{name}
-    defaults: { _controller: lmdi.purgesub.controller:handle }
