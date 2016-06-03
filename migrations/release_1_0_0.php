@@ -103,11 +103,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			)),
 			array('module.remove', array(
 				'ucp',
-				'UCP_MAIN',
-				'UCP_PSB_TITLE',
-			)),
-			array('module.remove', array(
-				'ucp',
 				'UCP_PSB_TITLE',
 				array(
 					'module_basename'	=> '\lmdi\purgesub\ucp\ucp_psb_module',
@@ -132,6 +127,11 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 					'module_mode'		=> 'purgesub',
 					'module_auth'       => 'ext_lmdi/purgesub',
 				),
+			)),
+			array('module.remove', array(
+				'ucp',
+				'UCP_MAIN',
+				'UCP_PSB_TITLE',
 			)),
 			*/
 		);

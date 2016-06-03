@@ -93,16 +93,16 @@ class main_listener implements EventSubscriberInterface
 			$nb = count ($module_ary);
 			for ($i = 0; $i < $nb; $i++) 
 			{
-				var_dump ($id);
-				var_dump ($mode);
+				// var_dump ($id);
+				// var_dump ($mode);
 				$module = $module_ary[$i];
 				$langname = $module['langname'];
 				if ($langname == "UCP_PSB")
 				{
-					var_dump ($module);
+					// var_dump ($module);
 					$module['display'] = 0;
 					$module_ary[$i] = $module;
-					var_dump ($module);
+					// var_dump ($module);
 					break;
 				}
 			}

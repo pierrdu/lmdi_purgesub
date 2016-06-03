@@ -8,7 +8,7 @@ To purge subscribed topics by date
 2. Unzip the downloaded release, and change the name of the folder to `purgesub`.
 3. In the `ext` directory of your phpBB board, create a new directory named `lmdi` 
    (if it does not already exist).
-4. Copy the `purgesub` folder to `phpBB/ext/lmdi/`
+4. Copy the `purgesub` folder to `/ext/lmdi/`
 5. Navigate in the ACP to `Customise -> Manage extensions`.
 6. Look for `Purge Subscriptions` under the Disabled Extensions list, and click its 
   `Enable` link.
