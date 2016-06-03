@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015 Pierre Duhem - LMDI
+* @copyright (c) 2015-2016 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -81,7 +81,7 @@ class main_listener implements EventSubscriberInterface
 		*/
 
 		$ucp_config = (int) $config['lmdi_purge_ucp'];
-		if ($ucp_config) 
+		if ($ucp_config)
 		{
 			echo ("Branche positive.<br>\n");
 		}
@@ -91,7 +91,7 @@ class main_listener implements EventSubscriberInterface
 			$array = (array) $modules;
 			$module_ary = $array['module_ary'];
 			$nb = count ($module_ary);
-			for ($i = 0; $i < $nb; $i++) 
+			for ($i = 0; $i < $nb; $i++)
 			{
 				// var_dump ($id);
 				// var_dump ($mode);

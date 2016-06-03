@@ -52,7 +52,7 @@ $lang = array_merge($lang, array(
 	'UCP_PSB_NB_EXPLAIN'	=> 'Il s\'agit du nombre total des sujets que vous avez surveillés.',
 	'UCP_PSB_PURGE_LABEL'	=> 'Délestage des sujets plus anciens que',
 	'UCP_PSB_PURGE_EXPLAIN'	=> 'Les sujets surveillés plus anciens que le nombre de mois ci-contre seront supprimés.',
-	
+
 	'UCP_SITUATION'		=> 'Situation des sujets surveillés',
 	'UCP_PSB_AFFICHAGE'	=> 'Nombre de sujets surveillés plus âgés que',
 	'UCP_PSB_AFF_EXPLAIN'	=> 'Affichage des sujets surveillés plus anciens que le nombre de mois ci-contre sans nouvelle visite ou sans nouveau message.',
@@ -69,7 +69,5 @@ $lang = array_merge($lang, array(
 	'MONTHS'				=> 'mois',
 	'YES'				=> 'Oui',
 	'NO'					=> 'Non',
-	
-));
 
-?>
+));

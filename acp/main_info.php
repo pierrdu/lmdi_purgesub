@@ -19,8 +19,8 @@ class main_info
 			'title'		=> 'ACP_PSB_TITLE',
 			'version'	=> '1.0.0',
 			'modes'	=> array(
-					'settings' => array('title' => 'ACP_PSB', 
-							'auth' => 'ext_lmdi/purgesub', 
+					'settings' => array('title' => 'ACP_PSB',
+							'auth' => 'ext_lmdi/purgesub',
 							'cat' => array('ACP_PSB_TITLE')
 						),
 			),

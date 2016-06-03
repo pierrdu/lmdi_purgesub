@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015 Pierre Duhem - LMDI
+* @copyright (c) 2015-2016 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -28,7 +28,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('lmdi_purge_topics', 1)),
 			array('config.add', array('lmdi_purge_ucp', 0)),
 			/*
-			array('permission.add', array('ext_lmdi/purgesub')),	
+			array('permission.add', array('ext_lmdi/purgesub')),
 			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'ext_lmdi/purgesub')),
 			array('permission.permission_set', array('REGISTERED', 'ext_lmdi/purgesub')),
 			*/
@@ -51,7 +51,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				'0',
 				'UCP_PSB_TITLE',
 			)),
-			
 			array('module.add', array(
 				'ucp',
 				'UCP_PSB_TITLE',

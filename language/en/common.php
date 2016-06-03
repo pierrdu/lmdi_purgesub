@@ -52,7 +52,7 @@ $lang = array_merge($lang, array(
 	'UCP_PSB_PURGE'		=> 'Purge subscribed topics',
 	'UCP_PSB_PURGE_LABEL'	=> 'Purge subscribed topics older than',
 	'UCP_PSB_PURGE_EXPLAIN'	=> 'Your subscribed topics older than the number of months will be deleted.',
-	
+
 	'UCP_SITUATION'		=> 'Situation of subscribed topics',
 	'UCP_EXPLORATION'		=> 'Exploration of subscribed topics',
 	'UCP_PSB_AFFICHAGE'	=> 'Display subscribed topics older than',
@@ -61,17 +61,16 @@ $lang = array_merge($lang, array(
 	'UCP_PSB_NB_VIS_EXPLAIN'	=> 'Total number of your subscribed topics without a visit on this period.',
 	'UCP_PSB_NB_POST'		=> 'Total number of topics without a new post',
 	'UCP_PSB_NB_POST_EXPLAIN'	=> 'Total number of your subscribed topics without a new post on this period.',
-	
+
 	'UCP_PURGE_SUB'		=> 'Purge subscribed topics',
 	'UCP_PURGE_VISIT'		=> 'Purge topics without visits',
 	'UCP_PURGE_POSTS'		=> 'Purge topics without posts',
 	'UCP_RESULT_PURGE'		=> 'Number of deleted topics: ',
 
-	
+
 // Common
 	'MONTHS'				=> 'month(s)',
 	'YES'				=> 'Yes',
 	'NO'					=> 'No',
 ));
 
-?>

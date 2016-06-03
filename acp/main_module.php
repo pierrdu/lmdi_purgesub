@@ -65,7 +65,7 @@ class main_module
 		add_form_key('lmdi/purgesub');
 		$nbma = 0;
 		$nbmp = 0;
-		
+
 		// Data submitted
 		if ($request->is_set_post('submit'))
 		{
@@ -93,7 +93,7 @@ class main_module
 			$nbmp = $request->variable('nbmp', 0);
 			$purgep = $request->variable('purgep', 0);
 			$purgev = $request->variable('purgev', 0);
-			if ($nbmp != 0) 
+			if ($nbmp != 0)
 			{
 				if ($purgep)
 				{
@@ -122,7 +122,7 @@ class main_module
 					$delv = $this->db->sql_affectedrows();
 				}
 				$del = $delp + $delv;
-				if ($del) 
+				if ($del)
 				{
 					// Information message
 					$message = $user->lang('UCP_RESULT_PURGE') . $del;
@@ -130,16 +130,16 @@ class main_module
 				}
 			}
 		}
-		
+
 		// Back to the form
-		
+
 		// Total number of subscribed topics
 		$sql = "select count(*) as nb from " . TOPICS_WATCH_TABLE;
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
 		$nbt = $row['nb'];
 		$this->db->sql_freeresult($res);
-		
+
 		// Topics without new posts
 		$sql  = "SELECT COUNT(*) as nb ";
 		$sql .= " FROM " . TOPICS_WATCH_TABLE;
@@ -153,7 +153,7 @@ class main_module
 		$row = $this->db->sql_fetchrow($res);
 		$nbp  = $row['nb'];
 		$this->db->sql_freeresult($res);
-		
+
 		// Topics without new views
 		$sql  = "SELECT COUNT(*) as nb ";
 		$sql .= " FROM " . TOPICS_WATCH_TABLE;
@@ -167,7 +167,7 @@ class main_module
 		$row = $this->db->sql_fetchrow($res);
 		$nbv  = $row['nb'];
 		$this->db->sql_freeresult($res);
-			
+
 		// Display variables
 		$template->assign_vars(array(
 			'U_ACTION'			=> $this->u_action,
@@ -178,6 +178,6 @@ class main_module
 			'ACP_PSB_NBMP'			=> $nbmp,
 			'S_PURGE_UCP'			=> $config['lmdi_purge_ucp'],
 		));
-		
+
 	}
 }

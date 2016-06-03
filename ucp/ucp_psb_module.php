@@ -3,20 +3,12 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015 Pierre Duhem - LMDI
+* @copyright (c) 2015-2016 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
 
 namespace lmdi\purgesub\ucp;
-
-/**
-* @ignore
-*/
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
 
 /**
 * Class name must be the same as the file name.
@@ -56,9 +48,9 @@ class ucp_psb_module
 		if ($request->is_set_post('submit'))
 		{
 			if (!check_form_key('ucp_psb'))
-				{
-					trigger_error('FORM_INVALID');
-				}
+			{
+				trigger_error('FORM_INVALID');
+			}
 			// Display number of older topics
 			$nbma = $request->variable('nbma', 0);
 			if ($nbma)
@@ -92,7 +84,7 @@ class ucp_psb_module
 				$nbv  = $row['nb'];
 				$this->db->sql_freeresult($res);
 			}
-				
+
 			// Topics to be purged
 			$nbmp = $request->variable('nbmp', 0);
 			$purgep = $request->variable('purgep', 0);
@@ -128,7 +120,7 @@ class ucp_psb_module
 					$delv = $this->db->sql_affectedrows();
 				}
 				$del = $delp + $delv;
-				if ($del) 
+				if ($del)
 				{
 					// Information message
 					$message = 'UCP_RESULT_PURGE' . $del;
@@ -138,7 +130,7 @@ class ucp_psb_module
 				}
 			}
 		}
-		
+
 		// Total number of subscribed topics at this point of time (after or before)
 		$sql = "select count(*) as nb from " . TOPICS_WATCH_TABLE;
 		$sql .= " WHERE user_id = $uid";
@@ -148,23 +140,26 @@ class ucp_psb_module
 		$row = $this->db->sql_fetchrow($res);
 		$nbt  = $row['nb'];
 		$this->db->sql_freeresult($res);
-		
+
 		// Form and page display
 		$form_key = 'ucp_psb';
 		add_form_key($form_key);
 		if (!$nbv)
+		{
 			$nbv = $nbt;
+		}
 		if (!$nbp)
+		{
 			$nbp = $nbt;
+		}
 		$template->assign_vars(array(
 			'L_TITLE'  		=> $user->lang['UCP_PSB_TITLE'],
 			'S_UCP_ACTION' 	=> $this->u_action,
-			'UCP_PSB_NBT'		=> $nbt,			
-			'UCP_PSB_NBP'		=> $nbp,			
-			'UCP_PSB_NBV'		=> $nbv,			
+			'UCP_PSB_NBT'		=> $nbt,
+			'UCP_PSB_NBP'		=> $nbp,
+			'UCP_PSB_NBV'		=> $nbv,
 			'PSB_NBA'			=> $nbma,
 			'PSB_NBP'			=> $nbmp,
 		));
 	}
 }
-
