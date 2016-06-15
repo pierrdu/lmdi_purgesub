@@ -95,6 +95,8 @@ class main_module
 			$purgev = $request->variable('purgev', 0);
 			if ($nbmp != 0)
 			{
+				$delp = 0;
+				$delv = 0;
 				if ($purgep)
 				{
 					$sql  = "DELETE " . TOPICS_WATCH_TABLE;

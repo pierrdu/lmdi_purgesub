@@ -89,7 +89,7 @@ class ucp_psb_module
 			$nbmp = $request->variable('nbmp', 0);
 			$purgep = $request->variable('purgep', 0);
 			$purgev = $request->variable('purgev', 0);
-			if ($nbmp) 
+			if ($nbmp)
 			{
 				if ($purgep)
 				{

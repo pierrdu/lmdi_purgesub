@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Purge Subscribed Topics Extension for phpBB 3.1",
 	"homepage": "http://www.insecte.org/ext/readme.txt",
-	"version": "1.1.13",
-	"time": "2016-6-3",
+	"version": "1.1.14",
+	"time": "2016-6-15",
 	"license": "GPL-2.0",
 	"authors": [
 		{

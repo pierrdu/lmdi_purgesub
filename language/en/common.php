@@ -73,4 +73,3 @@ $lang = array_merge($lang, array(
 	'YES'				=> 'Yes',
 	'NO'					=> 'No',
 ));
-
