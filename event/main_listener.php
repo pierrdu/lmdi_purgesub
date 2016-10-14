@@ -54,9 +54,9 @@ class main_listener implements EventSubscriberInterface
 		// Initial reset of the module_display row in the module table
 		if (!$this->config['lmdi_purge_ucp'])
 		{
-			$sql  = "UPDATE " . MODULES_TABLE;
-			$sql .= " SET module_display = 0 ";
-			$sql .= "WHERE module_langname = 'UCP_PSB'";
+			$sql = "UPDATE " . MODULES_TABLE . "
+				SET module_display = 0 
+				WHERE module_langname = 'UCP_PSB'";
 			// var_dump ($sql);
 			$this->db->sql_query($sql);
 		}
@@ -74,11 +74,6 @@ class main_listener implements EventSubscriberInterface
 		$modules = $event['module'];
 		$id      = $event['id'];
 		$mode    = $event['mode'];
-		/*
-		var_dump ($modules);
-		var_dump ($id);
-		var_dump ($mode);
-		*/
 
 		$ucp_config = (int) $config['lmdi_purge_ucp'];
 		if ($ucp_config)
@@ -93,16 +88,12 @@ class main_listener implements EventSubscriberInterface
 			$nb = count ($module_ary);
 			for ($i = 0; $i < $nb; $i++)
 			{
-				// var_dump ($id);
-				// var_dump ($mode);
 				$module = $module_ary[$i];
 				$langname = $module['langname'];
 				if ($langname == "UCP_PSB")
 				{
-					// var_dump ($module);
 					$module['display'] = 0;
 					$module_ary[$i] = $module;
-					// var_dump ($module);
 					break;
 				}
 			}

@@ -91,6 +91,8 @@ class ucp_psb_module
 			$purgev = $request->variable('purgev', 0);
 			if ($nbmp)
 			{
+				$delp = 0;
+				$delv = 0;
 				if ($purgep)
 				{
 					$sql  = "DELETE " . TOPICS_WATCH_TABLE;

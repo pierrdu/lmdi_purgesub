@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015 Pierre Duhem - LMDI
+* @copyright (c) 2015-2016 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -99,26 +99,22 @@ class main_module
 				$delv = 0;
 				if ($purgep)
 				{
-					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
-					$sql .= " FROM " . TOPICS_WATCH_TABLE;
-					$sql .= " INNER JOIN " . TOPICS_TABLE;
-					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-					$sql .= TOPICS_TABLE . ".topic_id AND ";
-					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
-					$sql .= "date_sub(now(), interval $nbmp month)";
+					$sql = "DELETE ".TOPICS_WATCH_TABLE . "
+						FROM ".TOPICS_WATCH_TABLE . "
+						INNER JOIN ".TOPICS_TABLE . "
+						WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
+						(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_post_time)) < date_sub(now(), interval $nbmp month)";
 					// var_dump ($sql);
 					$this->db->sql_query($sql);
 					$delp = $this->db->sql_affectedrows();
 				}
 				if ($purgev)
 				{
-					$sql  = "DELETE " . TOPICS_WATCH_TABLE;
-					$sql .= " FROM " . TOPICS_WATCH_TABLE;
-					$sql .= " INNER JOIN " . TOPICS_TABLE;
-					$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-					$sql .= TOPICS_TABLE . ".topic_id AND ";
-					$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
-					$sql .= "date_sub(now(), interval $nbmp month)";
+					$sql = "DELETE ".TOPICS_WATCH_TABLE . "
+						FROM ".TOPICS_WATCH_TABLE . "
+						INNER JOIN ".TOPICS_TABLE . "
+						WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
+						(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_view_time)) < date_sub(now(), interval $nbmp month)";
 					// var_dump ($sql);
 					$this->db->sql_query($sql);
 					$delv = $this->db->sql_affectedrows();
@@ -136,20 +132,18 @@ class main_module
 		// Back to the form
 
 		// Total number of subscribed topics
-		$sql = "select count(*) as nb from " . TOPICS_WATCH_TABLE;
+		$sql = "SELECT count(*) as nb from " . TOPICS_WATCH_TABLE;
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
 		$nbt = $row['nb'];
 		$this->db->sql_freeresult($res);
 
 		// Topics without new posts
-		$sql  = "SELECT COUNT(*) as nb ";
-		$sql .= " FROM " . TOPICS_WATCH_TABLE;
-		$sql .= " INNER JOIN " . TOPICS_TABLE;
-		$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-		$sql .= TOPICS_TABLE . ".topic_id AND ";
-		$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_post_time)) < ";
-		$sql .= "date_sub(now(), interval $nbma month)";
+		$sql = "SELECT COUNT(*) as nb 
+			FROM ".TOPICS_WATCH_TABLE."
+			INNER JOIN ".TOPICS_TABLE."
+			WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
+			(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_post_time)) < date_sub(now(), interval $nbma month)";
 		// var_dump ($sql);
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
@@ -157,13 +151,11 @@ class main_module
 		$this->db->sql_freeresult($res);
 
 		// Topics without new views
-		$sql  = "SELECT COUNT(*) as nb ";
-		$sql .= " FROM " . TOPICS_WATCH_TABLE;
-		$sql .= " INNER JOIN " . TOPICS_TABLE;
-		$sql .= " WHERE " . TOPICS_WATCH_TABLE . ".topic_id = ";
-		$sql .= TOPICS_TABLE . ".topic_id AND ";
-		$sql .= "(FROM_UNIXTIME(". TOPICS_TABLE . ".topic_last_view_time)) < ";
-		$sql .= "date_sub(now(), interval $nbma month)";
+		$sql = "SELECT COUNT(*) as nb 
+			FROM ".TOPICS_WATCH_TABLE."
+			INNER JOIN ".TOPICS_TABLE."
+			WHERE ".TOPICS_WATCH_TABLE.".topic_id = ".TOPICS_TABLE.".topic_id AND 
+			(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_view_time)) < date_sub(now(), interval $nbma month)";
 		// var_dump ($sql);
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
