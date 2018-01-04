@@ -1,6 +1,6 @@
 # phpBB Purge Subscriptions Extension
 
-To purge subscribed topics by date
+Extension to purge subscribed topics
 
 ## Install
 

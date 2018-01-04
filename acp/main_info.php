@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015-2016 Pierre Duhem - LMDI
+* @copyright (c) 2015-2018 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -12,7 +12,7 @@ namespace lmdi\purgesub\acp;
 
 class main_info
 {
-	function module()
+	public function module()
 	{
 		return array(
 			'filename'	=> '\lmdi\purgesub\acp\main_module',

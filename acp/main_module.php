@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015-2016 Pierre Duhem - LMDI
+* @copyright (c) 2015-2018 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -66,7 +66,6 @@ class main_module
 		$nbma = 0;
 		$nbmp = 0;
 
-		// Data submitted
 		if ($request->is_set_post('submit'))
 		{
 			if (!check_form_key('lmdi/purgesub'))
@@ -74,21 +73,25 @@ class main_module
 				trigger_error('FORM_INVALID');
 			}
 			$nbma = $request->variable('nbma', 0);
+
 			// Register the setting for the UCP in the config table if changed.
 			$cod1 = $config['lmdi_purge_ucp'];
 			$cod2 = $request->variable('psb_validation', 0);
-			$mess = 0;
 			if ($cod1 != $cod2)
 			{
 				$config->set('lmdi_purge_ucp', $cod2);
-				$sql  = "UPDATE " . MODULES_TABLE;
-				$sql .= " SET module_display = $cod2 ";
-				$sql .= "WHERE module_langname = 'UCP_PSB'";
+				// Update our tab in UCP
+				$sql = "UPDATE " . MODULES_TABLE . "
+					SET module_display = $cod2 WHERE module_langname = 'UCP_PSB_TOPICS'";
+				$this->db->sql_query($sql);
+				// Hide/show the Manage subscriptions subtab in the Overview tab
+				$sql = "UPDATE " . MODULES_TABLE . " SET module_display = $cod1, module_enabled = $cod1 
+					WHERE module_langname = 'UCP_MAIN_SUBSCRIBED'";
 				$this->db->sql_query($sql);
 				$cache->purge ();
-				$mess += 1;
 				trigger_error($user->lang('PSB_SETTING_SAVED') . adm_back_link($this->u_action));
 			}
+
 			// Purge older topics in topics_watch table
 			$nbmp = $request->variable('nbmp', 0);
 			$purgep = $request->variable('purgep', 0);
@@ -104,7 +107,6 @@ class main_module
 						INNER JOIN ".TOPICS_TABLE . "
 						WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
 						(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_post_time)) < date_sub(now(), interval $nbmp month)";
-					// var_dump ($sql);
 					$this->db->sql_query($sql);
 					$delp = $this->db->sql_affectedrows();
 				}
@@ -115,14 +117,12 @@ class main_module
 						INNER JOIN ".TOPICS_TABLE . "
 						WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
 						(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_view_time)) < date_sub(now(), interval $nbmp month)";
-					// var_dump ($sql);
 					$this->db->sql_query($sql);
 					$delv = $this->db->sql_affectedrows();
 				}
 				$del = $delp + $delv;
 				if ($del)
 				{
-					// Information message
 					$message = $user->lang('UCP_RESULT_PURGE') . $del;
 					trigger_error($message. adm_back_link($this->u_action));
 				}
@@ -144,7 +144,6 @@ class main_module
 			INNER JOIN ".TOPICS_TABLE."
 			WHERE ".TOPICS_WATCH_TABLE.".topic_id =".TOPICS_TABLE.".topic_id AND 
 			(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_post_time)) < date_sub(now(), interval $nbma month)";
-		// var_dump ($sql);
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
 		$nbp  = $row['nb'];
@@ -156,7 +155,6 @@ class main_module
 			INNER JOIN ".TOPICS_TABLE."
 			WHERE ".TOPICS_WATCH_TABLE.".topic_id = ".TOPICS_TABLE.".topic_id AND 
 			(FROM_UNIXTIME(".TOPICS_TABLE.".topic_last_view_time)) < date_sub(now(), interval $nbma month)";
-		// var_dump ($sql);
 		$res = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($res);
 		$nbv  = $row['nb'];

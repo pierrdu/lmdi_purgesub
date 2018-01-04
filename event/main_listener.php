@@ -3,7 +3,7 @@
 *
 * Purge subscriptions extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2015-2016 Pierre Duhem - LMDI
+* @copyright (c) 2015-2018 Pierre Duhem - LMDI
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -56,7 +56,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			$sql = "UPDATE " . MODULES_TABLE . "
 				SET module_display = 0 
-				WHERE module_langname = 'UCP_PSB'";
+				WHERE module_langname = 'UCP_PSB_TOPICS'";
 			// var_dump ($sql);
 			$this->db->sql_query($sql);
 		}
@@ -90,7 +90,7 @@ class main_listener implements EventSubscriberInterface
 			{
 				$module = $module_ary[$i];
 				$langname = $module['langname'];
-				if ($langname == "UCP_PSB")
+				if ($langname == "UCP_PSB_TOPICS")
 				{
 					$module['display'] = 0;
 					$module_ary[$i] = $module;
