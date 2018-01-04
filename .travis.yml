@@ -1,5 +1,5 @@
 sudo: required
-dist: precise
+dist: trusty
 
 language: php
 
@@ -7,8 +7,10 @@ matrix:
   include:
     - php: 5.3.3
       env: DB=mysqli
+      dist: precise
     - php: 5.3
       env: DB=mysqli # MyISAM
+      dist: precise
     - php: 5.4
       env: DB=mysqli
     - php: 5.4
@@ -27,7 +29,6 @@ matrix:
       env: DB=mysqli
   allow_failures:
     - php: hhvm
-      dist: trusty
   fast_finish: true
 
 env:
