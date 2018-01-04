@@ -32,7 +32,6 @@ class ucp_psb_module
 		$this->user = $user;
 		$this->user->add_lang_ext('lmdi/purgesub', 'common');
 
-
 		switch ($mode)
 		{
 			case 'purgesub' :	// General subscription management

@@ -31,7 +31,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			// Config lines
 			array('config.add', array('lmdi_purge_topics', 1)),
 			array('config.add', array('lmdi_purge_ucp', 0)),
-			
+
 			// ACP modules
 			array('module.add', array(
 				'acp',
@@ -47,7 +47,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 					'auth'			=> 'ext_lmdi/purgesub && acl_a_board',
 				),
 			)),
-			
+
 			// UCP modules
 			array('module.add', array(
 				'ucp',
